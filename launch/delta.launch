@@ -2,10 +2,28 @@
 
 <launch>
 	<!-- User arguments -->
+
+	<arg name="isBoardConnected" default="true" doc="Specify whether the arduino board is connected or not."/>
+	<arg name="port" default="/dev/ttyACM0"/>
+	<arg name="baud" default="57600"/>
 	<arg name="video_device"  default="/dev/video0" />
 	<arg name="show_image"  default="true" />
+	<arg name="name" default="delta"/>
+
+
 
 	<!-- camera capture -->
+	<group if="$(arg isBoardConnected)">
+		<!-- rosparam command="load" file="$(find lookat_firmware)/config/arduino_params.yaml" / -->
+		<node ns="delta" name="arduino_node" pkg="rosserial_python" type="serial_node.py" output="screen">
+			<param name="~port" value="$(arg port)" />
+	        <param name="~baud" value="$(arg baud)" />
+		</node>
+	</group>
+
+
+
+
 	<node
 		name="usb_cam"
 		pkg="usb_cam"
