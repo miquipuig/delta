@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package>
+    <name>delta</name>
+    <version>0.0.0</version>
+    <description>
+        Just a simple template node receivng an image and doing something. Links to OpenCV and ROS wrapped.
+    </description>
+
+    <!-- One maintainer tag required, multiple allowed, one person per tag -->
+    <maintainer email="mpuig22@gmail.com">Miquel Puig</maintainer>
+
+    <!-- One license tag required, multiple allowed, one license per tag -->
+    <license>BSD</license>
+
+    <!-- Url tags are optional, but mutiple are allowed, one per tag -->
+    
+    <!-- Author tags are optional, mutiple are allowed, one per tag -->
+    <author email="mpuig22@gmail.com">Miquel Puig</author>
+
+    <!-- The *_depend tags are used to specify dependencies -->
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <build_depend>roscpp</build_depend>
+    <build_depend>rospy</build_depend>
+    <build_depend>image_transport</build_depend>
+    <build_depend>cv_bridge</build_depend>
+
+    <run_depend>roscpp</run_depend>
+    <run_depend>rospy</run_depend>
+    <run_depend>image_transport</run_depend>
+    <run_depend>cv_bridge</run_depend>
+
+</package>
