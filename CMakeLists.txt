@@ -18,7 +18,7 @@ find_package(OpenCV REQUIRED)
 SET(SRCS
       src/delta_node.cpp
       src/delta_main.cpp)
-
+      #src/delta_kinematics.cpp)
 ## The catkin_package macro generates cmake config files for your package
 catkin_package(
       CATKIN_DEPENDS

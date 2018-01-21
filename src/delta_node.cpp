@@ -15,15 +15,20 @@ RosImgProcessorNode::RosImgProcessorNode() :
     nh_(ros::this_node::getName()),
     img_tp_(nh_)
 {
-	//loop rate [hz], Could be set from a yaml file
+  //loop rate [hz], Could be set from a yaml file
 	rate_=10;
 
 	//sets publishers
 	image_pub_ = img_tp_.advertise("image_out", 100);
+  ray_direction_circle_pub = nh_.advertise<geometry_msgs::Vector3>("center_ray_direction", 1);
+  ray_direction_ = (cv::Mat_<double>(3,1) << 0, 0, 0) ;
+
+
 
 	//sets subscribers
 	image_subs_ = img_tp_.subscribe("image_in", 1, &RosImgProcessorNode::imageCallback, this);
 	camera_info_subs_ = nh_.subscribe("camera_info_in", 100, &RosImgProcessorNode::cameraInfoCallback, this);
+
 }
 
 RosImgProcessorNode::~RosImgProcessorNode()
@@ -38,17 +43,15 @@ void RosImgProcessorNode::process()
     cv::Mat gray_image;
     int radius;
     std::vector<cv::Vec3f> circles;
-    cv::Mat K = (cv::Mat_<double>(3,3) << 538.8181225518491, 0, 538.8181225518491, 0, 538.8181225518491, 538.8181225518491, 0, 0, 1);
+    cv::Mat K = matrixK_;
     cv::Mat u=(cv::Mat_<double>(3,1)<< 0,0,0);
-    cv::Mat d;
+
     double xcenter=640/2;
     double ycenter=480/2;
     cv::Point centerp = cv::Point(xcenter, ycenter);
     //check if new image is there
     if ( cv_img_ptr_in_ != nullptr )
     {
-
-
         //copy the input image to the out one
         cv_img_out_.image = cv_img_ptr_in_->image;
 
@@ -62,14 +65,8 @@ void RosImgProcessorNode::process()
 		//find the direction vector
 		//TODO
      cv::Mat Kinv= K.inv();
+     //std::cout << Kinv << std::endl;
      //exemple de u
-     //cv::Mat u=(cv::Mat_<double>(3,1)<< 1,1,0);
-     //cv::Mat d= Kinv*u;
-
-
-
-
-
 
     for(unsigned int ii = 0; ii < circles.size(); ii++ )
     {
@@ -77,13 +74,11 @@ void RosImgProcessorNode::process()
         if ( circles[ii][0] != -1 )
         {
                 //std::cout << "Circulo: " << circles[ii][0] <<";"<< circles[ii][1]<<";"<< circles[ii][2]<<std::endl;
-
-
-                u=(cv::Mat_<double>(3,1)<< circles[ii][0] -xcenter, circles[ii][0] - ycenter,0);
+                u=(cv::Mat_<double>(3,1)<< circles[ii][0] -xcenter, circles[ii][1] - ycenter,1);
 
                 //imprimeix coordenades Ray director
-                d= Kinv*u;
-                std::cout <<"Ray Director"<< d << std::endl;
+                ray_direction_= Kinv*u;
+                //  std::cout <<"Ray Director"<< d << std::endl;
 
                 center = cv::Point(cvRound(circles[ii][0]), cvRound(circles[ii][1]));
                 radius = cvRound(circles[ii][2]);
@@ -91,8 +86,6 @@ void RosImgProcessorNode::process()
                 cv::circle(cv_img_out_.image, center, radius, cv::Scalar(0,0,255), 3, 8, 0 );// circle perimeter in red
                 //vector Ray director
                 cv::line(cv_img_out_.image,centerp,center,cv::Scalar(0,0,255), 8); //linea
-
-
         }
     }
 
@@ -112,6 +105,15 @@ void RosImgProcessorNode::publish()
 	    cv_img_out_.header.frame_id = "camera";
 	    cv_img_out_.encoding = img_encoding_;
 	    image_pub_.publish(cv_img_out_.toImageMsg());
+
+      geometry_msgs::Vector3 direction;
+      direction.x = ray_direction_.at<double>(0, 0);
+      direction.y = ray_direction_.at<double>(1, 0);
+      direction.z = ray_direction_.at<double>(2, 0);
+      ray_direction_circle_pub.publish(direction);
+
+
+
 	}
 }
 
@@ -139,5 +141,9 @@ void RosImgProcessorNode::cameraInfoCallback(const sensor_msgs::CameraInfo & _ms
 	matrixP_ = (cv::Mat_<double>(3,3) << _msg.P[0],_msg.P[1],_msg.P[2],
                                         _msg.P[3],_msg.P[4],_msg.P[5],
                                         _msg.P[6],_msg.P[7],_msg.P[8]);
-	//std::cout << matrixP_ << std::endl;
+
+  matrixK_ = (cv::Mat_<double>(3,3) << _msg.K[0],_msg.K[1],_msg.K[2],
+                                      _msg.K[3],_msg.K[4],_msg.K[5],
+                                      _msg.K[6],_msg.K[7],_msg.K[8]);
+  //std::cout << matrixP_ << std::endl;
 }

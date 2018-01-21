@@ -4,7 +4,7 @@
 	<!-- User arguments -->
 
 	<arg name="isBoardConnected" default="true" doc="Specify whether the arduino board is connected or not."/>
-	<arg name="port" default="/dev/ttyACM0"/>
+	<arg name="port" default="/dev/ttyACM1"/>
 	<arg name="baud" default="57600"/>
 	<arg name="video_device"  default="/dev/video0" />
 	<arg name="show_image"  default="true" />
@@ -21,7 +21,7 @@
 		</node>
 	</group>
 
-
+<node ns="delta" required="true" name="delta_kinematics" pkg="delta" type="delta_kinematics" respawn="false" output="screen"/>
 
 
 	<node
@@ -37,6 +37,9 @@
 		<param name="io_method" value="mmap"/>
 	</node>
 
+
+
+
 	<!-- Provides rectified image, given raw image and camera info -->
 	<node
 		name="image_proc"
@@ -46,6 +49,8 @@
 		output="screen"
 		respawn="true" >
 	</node>
+
+
 
 	<!--Fake processor-->
 	<node name="delta"
