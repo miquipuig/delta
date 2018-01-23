@@ -1,4 +1,5 @@
 
+# Robot delta
 ## How to run the code
 In a terminal window, type:
 ```sh
@@ -26,4 +27,4 @@ Per a que tot funcionés directament (a partir d'una posició moure els motors) 
 
 ## Tip
 Check your webcam encodings (yuyv,mjpeg,...) and set them accordingly at file launch/usb_camera.launch
-# delta
+
