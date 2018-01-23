@@ -1,6 +1,5 @@
 #include "delta_node.h"
 
-
 const int GAUSSIAN_BLUR_SIZE = 7;
 const double GAUSSIAN_BLUR_SIGMA = 2;
 const double CANNY_EDGE_TH = 150;
@@ -20,7 +19,7 @@ RosImgProcessorNode::RosImgProcessorNode() :
 
 	//sets publishers
 	image_pub_ = img_tp_.advertise("image_out", 100);
-  ray_direction_circle_pub = nh_.advertise<geometry_msgs::Vector3>("center_ray_direction", 1);
+  ray_direction_circle_pub = nh_.advertise<geometry_msgs::Vector3>("direction", 1);
   ray_direction_ = (cv::Mat_<double>(3,1) << 0, 0, 0) ;
 
 

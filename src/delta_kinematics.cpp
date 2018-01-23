@@ -17,6 +17,9 @@ const float tan60 = sqrt3;
 const float sin30 = 0.5;
 const float tan30 = 1/sqrt3;
 
+float theta1;
+float theta2;
+float theta3;
 
 // inverse kinematics
 // helper functions, calculates angle theta1 (for YZ-pane)
@@ -46,54 +49,75 @@ int delta_calcInverse(float x0, float y0, float z0, float &theta1, float &theta2
 
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-
+#include "geometry_msgs/Vector3.h"
 #include <sstream>
-
+#include "std_msgs/UInt16MultiArray.h"
+#include <vector>
+std::vector<int> thetas = { 0, 0 , 0};
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
+
+
+ void chatterCallback(const geometry_msgs::Vector3& vector)
+ {
+float th1;
+float th2;
+float th3;
+   if(delta_calcInverse(vector.x,vector.y,vector.z,th1,th2,th3)==-1){
+     ROS_INFO("No hay inversa posible");
+   }
+   else{
+  theta1=th1;
+  theta2=th2;
+  theta3=th3;
+   ROS_INFO("theta1: [%f]", theta1);
+   ROS_INFO("theta2: [%f]", theta2);
+   ROS_INFO("theta3: [%f]", theta3);
+ }
+   //ROS_INFO("theta: [%f]", vector.x);
+   //ROS_INFO("y: [%f]", vector.y);
+   //ROS_INFO("z: [%f]", vector.z);
+
+
+
+ }
+
+
 int main(int argc, char **argv)
 {
 
   ros::init(argc, argv, "delta_kinematics");
 
-
   ros::NodeHandle n;
 
+  ros::Subscriber sub = n.subscribe("position", 10,chatterCallback);
+  ros::Publisher chatter_pub = n.advertise<std_msgs::UInt16MultiArray >("thetas", 10);
 
-  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("delta_kinematics", 1000);
+  ros::Rate loop_rate(5);
 
-  ros::Rate loop_rate(10);
-
-  /**
-   * A count of how many messages we have sent. This is used to create
-   * a unique string for each message.
-   */
   int count = 0;
   while (ros::ok())
   {
-    /**
-     * This is a message object. You stuff it with data, and then publish it.
-     */
-    std_msgs::String msg;
+    std_msgs::UInt16MultiArray msg;
+    msg.layout.dim.push_back(std_msgs::MultiArrayDimension());
+    msg.layout.dim[0].size = 3;
+    //msg.layout.dim[0].stride = 1;
+    msg.layout.dim[0].label = "thetas";
+    msg.data.clear();
 
-    std::stringstream ss;
-    ss << "hello world " << count;
-    msg.data = ss.str();
+    thetas[0]=theta1;
+    thetas[1]=theta2;
+    thetas[0]=theta3;
+    msg.data.insert(msg.data.end(), thetas.begin(), thetas.end());
 
-    ROS_INFO("%s", msg.data.c_str());
-
-    /**
-     * The publish() function is how you send messages. The parameter
-     * is the message object. The type of this object must agree with the type
-     * given as a template parameter to the advertise<>() call, as was done
-     * in the constructor above.
-     */
     chatter_pub.publish(msg);
+
+    //ROS_INFO("%s", msg.data.c_str());
 
     ros::spinOnce();
 
     loop_rate.sleep();
-    ++count;
+
   }
 }
