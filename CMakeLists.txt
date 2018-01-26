@@ -37,6 +37,7 @@ add_executable(delta_control src/delta_control.cpp)
 target_link_libraries(delta ${OpenCV_LIBS} ${catkin_LIBRARIES})
 target_link_libraries(delta_kinematics ${OpenCV_LIBS} ${catkin_LIBRARIES})
 target_link_libraries(delta_control ${OpenCV_LIBS} ${catkin_LIBRARIES})
+
 #install binaries
 install(TARGETS delta
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

@@ -82,7 +82,6 @@ int main(int argc, char **argv)
     //ROS_INFO("inicialxIncfix: [%lf]",xIncfix );
   }
 
-
     geometry_msgs::Vector3 msg;
     msg.x = outPosition.at<double>(0, 0);
     msg.y = outPosition.at<double>(1, 0);

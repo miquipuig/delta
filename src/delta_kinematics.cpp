@@ -102,7 +102,7 @@ int main(int argc, char **argv)
 
     thetas[0]=theta1;
     thetas[1]=theta2;
-    thetas[0]=theta3;
+    thetas[3]=theta3;
     msg.data.insert(msg.data.end(), thetas.begin(), thetas.end());
 
     chatter_pub.publish(msg);
