@@ -73,11 +73,15 @@ void RosImgProcessorNode::process()
         if ( circles[ii][0] != -1 )
         {
                 //std::cout << "Circulo: " << circles[ii][0] <<";"<< circles[ii][1]<<";"<< circles[ii][2]<<std::endl;
-                u=(cv::Mat_<double>(3,1)<< circles[ii][0] -xcenter, circles[ii][1] - ycenter,1);
+                //u=(cv::Mat_<double>(3,1)<< circles[ii][0] -xcenter, circles[ii][1] - ycenter,1);
+                u=(cv::Mat_<double>(3,1)<< circles[ii][0] , circles[ii][1] ,1);
 
                 //imprimeix coordenades Ray director
                 ray_direction_= Kinv*u;
-                //  std::cout <<"Ray Director"<< d << std::endl;
+                  //std::cout <<"Ray Director"<< ray_direction_ << std::endl;
+                  //std::cout <<"Punto"<< u << std::endl;
+                //  std::cout <<"Kinv"<< Kinv << std::endl;
+
 
                 center = cv::Point(cvRound(circles[ii][0]), cvRound(circles[ii][1]));
                 radius = cvRound(circles[ii][2]);
@@ -85,6 +89,7 @@ void RosImgProcessorNode::process()
                 cv::circle(cv_img_out_.image, center, radius, cv::Scalar(0,0,255), 3, 8, 0 );// circle perimeter in red
                 //vector Ray director
                 cv::line(cv_img_out_.image,centerp,center,cv::Scalar(0,0,255), 8); //linea
+
         }
     }
 
@@ -110,8 +115,6 @@ void RosImgProcessorNode::publish()
       direction.y = ray_direction_.at<double>(1, 0);
       direction.z = ray_direction_.at<double>(2, 0);
       ray_direction_circle_pub.publish(direction);
-
-
 
 	}
 }

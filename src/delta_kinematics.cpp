@@ -70,9 +70,9 @@ if(vector.x!=0 || vector.y!=0 || vector.z!=0){
         theta1=th1;
         theta2=th2;
         theta3=th3;
-         ROS_INFO("theta1: [%f]", theta1);
-         ROS_INFO("theta2: [%f]", theta2);
-         ROS_INFO("theta3: [%f]", theta3);
+         //ROS_INFO("theta1: [%f]", theta1);
+         //ROS_INFO("theta2: [%f]", theta2);
+         //ROS_INFO("theta3: [%f]", theta3);
        }
   }
 }
