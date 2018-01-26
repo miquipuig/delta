@@ -58,15 +58,15 @@ int main(int argc, char **argv)
       double yInc=inPosition.at<double>(1,0)- outPosition.at<double>(1,0);
       double zInc=inPosition.at<double>(2,0)- outPosition.at<double>(2,0);
 
-      if(xInc>0.5 || xInc<0.5){
+      //if(xInc>0.5 || xInc<0.5){
         outPosition.at<double>(0,0) = outPosition.at<double>(0,0)+xIncfix;
-      }
-      if(yInc>0.5 || yInc<0.5){
+      //}
+      //if(yInc>0.5 || yInc<0.5){
         outPosition.at<double>(1,0) = outPosition.at<double>(1,0)+yIncfix;
-      }
-      if(yInc>0.5 || zInc<0.5){
+      //}
+      //if(zInc>0.5 || zInc<0.5){
         outPosition.at<double>(2,0) = outPosition.at<double>(2,0)+zIncfix;
-      }
+      //}
 
       count+=1;
       //ROS_INFO("midxIncfix: [%lf]",xIncfix );

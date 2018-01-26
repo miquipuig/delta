@@ -70,9 +70,9 @@ if(vector.x!=0 || vector.y!=0 || vector.z!=0){
         theta1=th1;
         theta2=th2;
         theta3=th3;
-         //ROS_INFO("theta1: [%f]", theta1);
-         //ROS_INFO("theta2: [%f]", theta2);
-         //ROS_INFO("theta3: [%f]", theta3);
+         ROS_INFO("theta1: [%f]", theta1);
+         ROS_INFO("theta2: [%f]", theta2);
+         ROS_INFO("theta3: [%f]", theta3);
        }
   }
 }
@@ -102,7 +102,7 @@ int main(int argc, char **argv)
 
     thetas[0]=theta1;
     thetas[1]=theta2;
-    thetas[3]=theta3;
+    thetas[2]=theta3;
     msg.data.insert(msg.data.end(), thetas.begin(), thetas.end());
 
     chatter_pub.publish(msg);
