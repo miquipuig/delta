@@ -15,7 +15,6 @@ const float f = 300;     //MODIFICARRRRR Longitud del lado del triángulo equil�
 const float re = 240;    // Longitud del brazo que va unido al triángulo pequeño y a 'rf'.
 const float rf = 150;    // Longitud del pequeño brazo que está unido al eje del servo y a 're'.
 
-
 const float sqrt3 = sqrt(3.0);
 const float pi = 3.141592653;    // Pi
 const float sin120 = sqrt3/2.0;

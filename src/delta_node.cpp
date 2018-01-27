@@ -78,9 +78,9 @@ void RosImgProcessorNode::process()
 
                 //imprimeix coordenades Ray director
                 ray_direction_= Kinv*u;
-                  //std::cout <<"Ray Director"<< ray_direction_ << std::endl;
-                  //std::cout <<"Punto"<< u << std::endl;
-                //  std::cout <<"Kinv"<< Kinv << std::endl;
+                //std::cout <<"Ray Director"<< ray_direction_ << std::endl;
+                //std::cout <<"Punto"<< u << std::endl;
+                // std::cout <<"Kinv"<< Kinv << std::endl;
 
 
                 center = cv::Point(cvRound(circles[ii][0]), cvRound(circles[ii][1]));

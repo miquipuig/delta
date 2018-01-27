@@ -33,10 +33,13 @@ include_directories(${OpenCV_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
 add_executable(delta ${SRCS})
 add_executable(delta_kinematics src/delta_kinematics.cpp)
 add_executable(delta_control src/delta_control.cpp)
+add_executable(delta_controlVector src/delta_controlVector.cpp)
+
 #add_dependencies(pipol_tracker_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${PROJECT_NAME}_generate_messages_cpp)
 target_link_libraries(delta ${OpenCV_LIBS} ${catkin_LIBRARIES})
 target_link_libraries(delta_kinematics ${OpenCV_LIBS} ${catkin_LIBRARIES})
 target_link_libraries(delta_control ${OpenCV_LIBS} ${catkin_LIBRARIES})
+target_link_libraries(delta_controlVector ${OpenCV_LIBS} ${catkin_LIBRARIES})
 
 #install binaries
 install(TARGETS delta
@@ -45,6 +48,8 @@ install(TARGETS delta_kinematics
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 install(TARGETS delta_control
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+install(TARGETS delta_controlVector
+        DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 #Share launch and configs
 foreach(dir launch config)
     install(DIRECTORY ${dir}/
