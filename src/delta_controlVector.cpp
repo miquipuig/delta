@@ -17,13 +17,16 @@ double yIncfix;
 cv::Mat inPosition=(cv::Mat_<double>(3,1)<< 0,0,0);
 
 //Fixar posició inicial que correspongui als angles de delta_kinematics
-cv::Mat outPosition=(cv::Mat_<double>(3,1)<< 0,0,0);
+cv::Mat outPosition=(cv::Mat_<double>(3,1)<< 30,30,130);
 
  void chatterCallback(const geometry_msgs::Vector3& vector)
  {
    inPosition=(cv::Mat_<double>(3,1)<< vector.x,vector.y,vector.z);
+
    yIncfix=vector.y;
    xIncfix=vector.x;
+   //std::cout << "X:"<<xIncfix << std::endl;
+   //std::cout << "Y:"<<yIncfix << std::endl;
  }
 
 int main(int argc, char **argv)
@@ -35,7 +38,7 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "delta_controlVector");
 
   ros::NodeHandle n;
-  ros::Subscriber sub = n.subscribe("ray_director", 10,chatterCallback);
+  ros::Subscriber sub = n.subscribe("direction", 10,chatterCallback);
   ros::Publisher chatter_pub = n.advertise<geometry_msgs::Vector3>("position", 1);
   ros::Rate loop_rate(rate);
 
@@ -47,10 +50,8 @@ int main(int argc, char **argv)
         outPosition.at<double>(1,0) = outPosition.at<double>(1,0)+yIncfix*k;
         outPosition.at<double>(2,0) = outPosition.at<double>(2,0);
 
-
-
-
-  }
+        xIncfix=0;
+        yIncfix=0;
 
     geometry_msgs::Vector3 msg;
     msg.x = outPosition.at<double>(0, 0);
@@ -63,6 +64,6 @@ int main(int argc, char **argv)
     ros::spinOnce();
 
     loop_rate.sleep();
-
+  }
 
 }

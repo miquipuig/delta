@@ -32,7 +32,7 @@ RosImgProcessorNode::RosImgProcessorNode() :
 
 RosImgProcessorNode::~RosImgProcessorNode()
 {
-    //
+
 }
 
 void RosImgProcessorNode::process()
@@ -90,6 +90,13 @@ void RosImgProcessorNode::process()
                 //vector Ray director
                 cv::line(cv_img_out_.image,centerp,center,cv::Scalar(0,0,255), 8); //linea
 
+
+                geometry_msgs::Vector3 direction;
+                direction.x = ray_direction_.at<double>(0, 0);
+                direction.y = ray_direction_.at<double>(1, 0);
+                direction.z = ray_direction_.at<double>(2, 0);
+                ray_direction_circle_pub.publish(direction);
+
         }
     }
 
@@ -110,11 +117,7 @@ void RosImgProcessorNode::publish()
 	    cv_img_out_.encoding = img_encoding_;
 	    image_pub_.publish(cv_img_out_.toImageMsg());
 
-      geometry_msgs::Vector3 direction;
-      direction.x = ray_direction_.at<double>(0, 0);
-      direction.y = ray_direction_.at<double>(1, 0);
-      direction.z = ray_direction_.at<double>(2, 0);
-      ray_direction_circle_pub.publish(direction);
+
 
 	}
 }
