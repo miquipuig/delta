@@ -22,8 +22,8 @@
 
 	<node ns="delta" required="true" name="delta_kinematics" pkg="delta" type="delta_kinematics" respawn="false" output="screen"/>
 
-  <!--<node ns="delta" required="true" name="delta_control" pkg="delta" type="delta_control" respawn="false" output="screen"/><node ns="delta" required="true" name="delta_control" pkg="delta" type="delta_control" respawn="false" output="screen"/>-->
-	<node ns="delta" required="true" name="delta_controlVector" pkg="delta" type="delta_controlVector" respawn="false" output="screen"/>
+  <node ns="delta" required="true" name="delta_control" pkg="delta" type="delta_control" respawn="false" output="screen"/>
+	<!--<node ns="delta" required="true" name="delta_controlVector" pkg="delta" type="delta_controlVector" respawn="false" output="screen"/>-->
 
 
 	<node

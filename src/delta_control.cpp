@@ -13,10 +13,10 @@
 
 
 
-cv::Mat inPosition=(cv::Mat_<double>(3,1)<< 0,0,0);
+cv::Mat inPosition=(cv::Mat_<double>(3,1)<< 0,0,315);
 
 //Fixar posició inicial que correspongui als angles de delta_kinematics
-cv::Mat outPosition=(cv::Mat_<double>(3,1)<< 0,0,0);
+cv::Mat outPosition=(cv::Mat_<double>(3,1)<< 0,0,315);
 
  void chatterCallback(const geometry_msgs::Vector3& vector)
  {

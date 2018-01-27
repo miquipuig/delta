@@ -14,14 +14,13 @@ double yIncfix;
 
 
 
-cv::Mat inPosition=(cv::Mat_<double>(3,1)<< 0,0,0);
+
 
 //Fixar posició inicial que correspongui als angles de delta_kinematics
-cv::Mat outPosition=(cv::Mat_<double>(3,1)<< 30,30,130);
+cv::Mat outPosition=(cv::Mat_<double>(3,1)<< 0,0,387);
 
  void chatterCallback(const geometry_msgs::Vector3& vector)
  {
-   inPosition=(cv::Mat_<double>(3,1)<< vector.x,vector.y,vector.z);
 
    yIncfix=vector.y;
    xIncfix=vector.x;
