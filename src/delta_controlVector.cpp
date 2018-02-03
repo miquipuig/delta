@@ -17,7 +17,7 @@ double alfa = 55;
 #define PI 3.14159265
 
 //Fixar posició inicial que correspongui als angles de delta_kinematics
-cv::Mat outPosition=(cv::Mat_<double>(3,1)<< 0,0,270);
+cv::Mat outPosition=(cv::Mat_<double>(3,1)<< 0,0,300);
 
  void chatterCallback(const geometry_msgs::Vector3& vector)
  {
@@ -47,6 +47,17 @@ int main(int argc, char **argv)
   while (ros::ok())
   {
 
+        std::cout << "X:"<<xIncfix << std::endl;
+          std::cout << "y:"<<yIncfix << std::endl;
+
+
+        if(xIncfix>0.2){
+          xIncfix=0.2;
+        }
+
+        if(yIncfix>0.2){
+          yIncfix=0.2;
+        }
         outPosition.at<double>(0,0) = outPosition.at<double>(0,0)+xIncfix*k;
         outPosition.at<double>(1,0) = outPosition.at<double>(1,0)+yIncfix*k;
         outPosition.at<double>(2,0) = outPosition.at<double>(2,0);
