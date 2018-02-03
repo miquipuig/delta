@@ -27,8 +27,8 @@ cv::Mat outPosition=(cv::Mat_<double>(3,1)<< 0,0,315);
 int main(int argc, char **argv)
 {
 
-  int rate =5; //Hz
-  int totaltime=4; //segons
+  int rate =60; //Hz
+  int totaltime=2.5; //segons
   int prod=rate*totaltime;
 
   ros::init(argc, argv, "delta_control");

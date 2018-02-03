@@ -13,17 +13,19 @@ double xIncfix;
 double yIncfix;
 
 
-
-
+double alfa = 55;
+#define PI 3.14159265
 
 //Fixar posició inicial que correspongui als angles de delta_kinematics
-cv::Mat outPosition=(cv::Mat_<double>(3,1)<< 0,0,387);
+cv::Mat outPosition=(cv::Mat_<double>(3,1)<< 0,0,270);
 
  void chatterCallback(const geometry_msgs::Vector3& vector)
  {
 
-   yIncfix=vector.y;
-   xIncfix=vector.x;
+   xIncfix= cos(alfa * PI / 180.0 )*vector.x - sin(alfa * PI / 180.0 )*vector.y;
+   yIncfix=-sin(alfa * PI / 180.0 )*vector.x - cos(alfa * PI / 180.0 )*vector.y;
+
+
    //std::cout << "X:"<<xIncfix << std::endl;
    //std::cout << "Y:"<<yIncfix << std::endl;
  }
@@ -31,8 +33,8 @@ cv::Mat outPosition=(cv::Mat_<double>(3,1)<< 0,0,387);
 int main(int argc, char **argv)
 {
 
-  const int rate =5; //Hz
-  const double k=0.5;
+  const int rate =60; //Hz
+  const double k=10;
 
   ros::init(argc, argv, "delta_controlVector");
 

@@ -10,9 +10,9 @@
 #include <vector>
 #include <cmath>
 
-const float e = 100;     // Longitud del lado del triángulo equilátero pequeño (el que se moverá).
-const float f = 220;     //MODIFICARRRRR Longitud del lado del triángulo equilátero grande  (el que estará estático).
-const float re = 240;    // Longitud del brazo que va unido al triángulo pequeño y a 'rf'.
+const float e = 110;     // Longitud del lado del triángulo equilátero pequeño (el que se moverá).
+const float f = 230;     //MODIFICARRRRR Longitud del lado del triángulo equilátero grande  (el que estará estático).
+const float re = 245;    // Longitud del brazo que va unido al triángulo pequeño y a 'rf'.
 const float rf = 150;    // Longitud del pequeño brazo que está unido al eje del servo y a 're'.
 
 const float sqrt3 = sqrt(3.0);
@@ -149,7 +149,7 @@ int main(int argc, char **argv)
   ros::Subscriber sub = n.subscribe("position", 10,chatterCallback);
   ros::Publisher chatter_pub = n.advertise<std_msgs::UInt16MultiArray >("servo", 10);
 
-  ros::Rate loop_rate(5);
+  ros::Rate loop_rate(60);
 
 
 
@@ -163,10 +163,10 @@ float zi =4;
 
 
 
-    std::cout << "Solucio?"<< delta_calcForward(50,50,50,xi,yi,zi) << std::endl;
-    std::cout << "x"<< xi << std::endl;
-    std::cout << "y"<< yi << std::endl;
-    std::cout << "z"<< zi << std::endl;
+    //std::cout << "Solucio?"<< delta_calcForward(50,50,50,xi,yi,zi) << std::endl;
+    //std::cout << "x"<< xi << std::endl;
+    //std::cout << "y"<< yi << std::endl;
+    //std::cout << "z"<< zi << std::endl;
 
 
     std_msgs::UInt16MultiArray msg;

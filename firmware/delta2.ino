@@ -59,6 +59,9 @@ void setup(){
   servo1.attach(9); //attach it to pin 9
   servo2.attach(10); //attach it to pin 10
   servo3.attach(11); //attach it to pin 11
+  servo1.write(130);
+  servo2.write(130);
+  servo3.write(130);
 
   pinMode(led_pin, OUTPUT);
   pinMode(button_pin, INPUT);
