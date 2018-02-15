@@ -14,12 +14,12 @@ $ rostopic pub /delta/servo std_msgs/UInt16MultiArray '{data: [0,0,0]}' --once
 
 Per a poder publicar una posició i que recalculi la posició dels motors
 ```sh
-$ rostopic pub /delta/position geometry_msgs/Vecr3 22 22 220
+$ rostopic pub /delta/position geometry_msgs/Vector3 22 22 220
 ```
 
 Per a poder veure la posició dels motors
 ```sh
-$ rostopic echo /delta/thetas
+$ rostopic echo /delta/servo
 ```
 
 Per a que tot funcionés directament (a partir d'una posició moure els motors) nomes s'ha de modificar el nom del topic thetas pera  que coincideixi amb el de servo de l'arduino.
