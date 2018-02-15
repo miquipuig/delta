@@ -4,9 +4,9 @@
 	<!-- User arguments -->
 
 	<arg name="isBoardConnected" default="true" doc="Specify whether the arduino board is connected or not."/>
-	<arg name="port" default="/dev/ttyACM1"/>
+	<arg name="port" default="/dev/ttyACM0"/>
 	<arg name="baud" default="57600"/>
-	<arg name="video_device"  default="/dev/video1" />
+	<arg name="video_device"  default="/dev/video0" />
 	<arg name="show_image"  default="true" />
 	<arg name="name" default="delta"/>
 
